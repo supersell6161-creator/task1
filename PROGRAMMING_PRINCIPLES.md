@@ -2,12 +2,12 @@
 
 
 ### SRP (Single Responsibility Principle)
-Each method has a clear, focused purpose: [`PrintEntrant`](./Program.cs#L148) prints, [`SortEntrantsByPoints`](./Program.cs#185) sorts, [`GetEntrantsInfo`](./Program.cs#175) extracts stats. The `Entrant` struct handles its own domain logic (`GetCompMark`, `GetBestSubject`, `GetWorstSubject`) while I/O remains in `Program`. The [`Main`](./Program.cs#201) method, however, mixes menu rendering, input dispatching, and application state management.
+Each method has a clear, focused purpose: [`PrintEntrant`](./Program.cs#L148) prints, [`SortEntrantsByPoints`](./Program.cs#L185) sorts, [`GetEntrantsInfo`](./Program.cs#175) extracts stats. The `Entrant` struct handles its own domain logic (`GetCompMark`, `GetBestSubject`, `GetWorstSubject`) while I/O remains in `Program`. The [`Main`](./Program.cs#201) method, however, mixes menu rendering, input dispatching, and application state management.
 
 ---
 
 ### Encapsulation
-Domain logic (`GetCompMark`, `GetBestSubject`, `GetWorstSubject`) is correctly placed inside the `Entrant` struct rather than in `Program`. However, all struct fields (`Name`, `IdNum`, etc.) are `public` with no access control, which breaks encapsulation — they should use properties with getters/setters.
+Domain logic ([`GetCompMark`](./Program.cs#L26), [`GetBestSubject`](./Program.cs#L37), [`GetWorstSubject`](./Program.cs#L53)) is correctly placed inside the `Entrant` struct rather than in `Program`. However, all struct fields (`Name`, `IdNum`, etc.) are `public` with no access control, which breaks encapsulation — they should use properties with getters/setters.
 
 ---
 
@@ -18,6 +18,7 @@ Data structures (`Entrant`, `ZNO`), I/O (`ReadEntrantsArray`, `PrintEntrant`), a
 
 ### DRY (Don't Repeat Yourself)
 The `Input()` method is overloaded for both `int` and `double`, centralizing validation logic (error messages, negative number checks) rather than copy-pasting it everywhere user input is needed.
+
 ---
 
 ### KISS (Keep It Simple, Stupid)
